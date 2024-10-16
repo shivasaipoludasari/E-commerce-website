@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECommerce Website</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+
+        .product img {
+            height: 200px;
+            width: auto;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">MyShop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#cart">Cart</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="text-center p-5 bg-light">
+        <div class="container">
+            <h1>Welcome to MyShop</h1>
+            <p class="lead">Your one-stop shop for all your needs</p>
+            <a href="#products" class="btn btn-primary">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="p-5">
+        <div class="container text-center">
+            <h2>About Us</h2>
+            <p>We are a leading eCommerce store with a wide variety of products at unbeatable prices.</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="p-5 bg-light">
+        <div class="container">
+            <h2 class="text-center">Our Products</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card product">
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="Product 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Product 1</h5>
+                            <p class="card-text">$10.00</p>
+                            <p class="card-text">A great product that meets all your needs.</p>
+                            <button class="btn btn-primary" onclick="addToCart('Product 1', 10)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card product">
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="Product 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Product 2</h5>
+                            <p class="card-text">$20.00</p>
+                            <p class="card-text">The perfect choice for your next purchase.</p>
+                            <button class="btn btn-primary" onclick="addToCart('Product 2', 20)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card product">
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="Product 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Product 3</h5>
+                            <p class="card-text">$30.00</p>
+                            <p class="card-text">A must-have item for anyone looking for quality.</p>
+                            <button class="btn btn-primary" onclick="addToCart('Product 3', 30)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login" class="p-5">
+        <div class="container">
+            <h2 class="text-center">Login</h2>
+            <form>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section id="cart" class="p-5 bg-light">
+        <div class="container">
+            <h2 class="text-center">Your Cart</h2>
+            <div id="cart-items"></div>
+            <p>Total: $<span id="total-price">0</span></p>
+            <button class="btn btn-success" onclick="buyNow()">Buy Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>MyShop &copy; 2024</p>
+    </footer>
+
+    <!-- JavaScript for Cart -->
+    <script>
+        let cart = [];
+        let totalPrice = 0;
+
+        function addToCart(product, price) {
+            cart.push({ product, price });
+            totalPrice += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById("cart-items");
+            const totalPriceEl = document.getElementById("total-price");
+            
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                cartItems.innerHTML += `<p>${item.product}: $${item.price}</p>`;
+            });
+            
+            totalPriceEl.textContent = totalPrice;
+        }
+
+        function buyNow() {
+            alert("Thank you for your purchase!");
+            cart = [];
+            totalPrice = 0;
+            updateCart();
+        }
+    </script>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
